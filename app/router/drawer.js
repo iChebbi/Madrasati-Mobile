@@ -8,6 +8,7 @@ export default class DrawerContent extends React.Component {
 		super(props)
 		this.props = props;
 	}
+	
 	render() {
 		return (
 			<View>
@@ -24,7 +25,7 @@ export default class DrawerContent extends React.Component {
 						rounded
 						source={require('../assets/girl.png')}
 						containerStyle={styles.logo}
-					/>
+						onPress={() => { console.log()}}/>
 					<Text style={styles.title}>
 						أسماء
 						</Text>

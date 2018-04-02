@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { signOut } from '../services/auth'
+import { signOut } from '../../services/auth'
 
 export default class Logout extends Component {
 	constructor(props) {

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
 
-export default class Hello extends Component {
-	
+export default class Done extends Component {
+
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Hello</Text>
+				<Text>Hello Done</Text>
 			</View>
 		)
 	}

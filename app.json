@@ -4,11 +4,17 @@
     "icon": "./app/assets/icon.png",
     "splash": {
       "image": "./app/assets/splash.png",
-      "backgroundColor": "#106cc8"
+      "backgroundColor": "#106cc8",
+      "resizeMode": "cover"
     },
     "version": "0.0.1",
     "slug": "madrasati",
     "sdkVersion": "26.0.0",
+    "packagerOpts": {
+      "assetExts": [
+        "ttf"
+      ]
+    },
     "ios": {
       "bundleIdentifier": "com.chebbi.madrasati"
     },
