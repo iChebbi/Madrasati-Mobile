@@ -1,5 +1,19 @@
 {
   "expo": {
-    "sdkVersion": "26.0.0"
+    "name": "مدرستي",
+    "icon": "./app/assets/icon.png",
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "backgroundColor": "#106cc8"
+    },
+    "version": "0.0.1",
+    "slug": "madrasati",
+    "sdkVersion": "26.0.0",
+    "ios": {
+      "bundleIdentifier": "com.chebbi.madrasati"
+    },
+    "android": {
+      "package": "com.chebbi.madrasati"
+    }
   }
 }

@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
-import { Button as ButtonEL, Avatar } from 'react-native-elements';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { Button, Avatar } from 'react-native-elements';
 
-export default class login extends React.Component {
+import { signIn } from '../services/auth'
+
+export default class SignIn extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
@@ -12,14 +14,15 @@ export default class login extends React.Component {
 					rounded
 					source={require('../assets/logo.jpg')}
 					containerStyle={styles.logo}
-					onPress={() => console.log("Works!")}
 				/>
+
+				<Text style={styles.header}>مدرستي</Text>
 
 				<TextInput placeholder="البريد الإلكتروني" keyboardType="email-address" underlineColorAndroid={'white'} style={styles.Input} />
 				<TextInput placeholder="كلمة السر" secureTextEntry underlineColorAndroid={'white'} style={styles.Input} />
 
-				<ButtonEL backgroundColor="#00C14F" buttonStyle={styles.button} rounded title="تسجيل الدخول" />
-				<ButtonEL buttonStyle={styles.button} rounded title="تسجيل حساب" />
+				<Button onPress={() => signIn().then(this.props.navigation.navigate('AppStack'))} backgroundColor="#00C14F" buttonStyle={styles.button} rounded title="تسجيل الدخول" />
+				<Button onPress={() => this.props.navigation.navigate('SignUp')} buttonStyle={styles.button} rounded title="تسجيل حساب" />
 			</View>
 		);
 	}
@@ -35,11 +38,17 @@ const styles = StyleSheet.create({
 	logo: {
 		margin: 20
 	},
+	header: {
+		fontSize: 50,
+		color: 'white',
+		fontWeight: 'bold',
+	},
 	Input: {
-		textAlign: "center",
+		textAlign: 'center',
 		height: 50,
 		width: 300,
-		marginTop: 10
+		marginTop: 10,
+		color: 'white'
 	},
 	button: {
 		marginTop: 20,
