@@ -1,16 +1,16 @@
 import { AsyncStorage } from "react-native";
 import axios from "axios";
-import base_url from "./host";
+import {baseUrl,reqParmeters} from "./host";
 
 
 export const signIn = async (email, password) => {
   try {
-		const response = await axios.post(`${base_url}/api/authorize`,{email,password},{headers: {"Content-Type": "application/json","Accept": "application/json"}});
+		const response = await axios.post(`${baseUrl}/api/authorize`,{email,password},reqParmeters);
 		
-    console.log(response.status);
-		console.log(response.data.id);
+    // console.log(response.status);
+		// console.log(response.data.parent.iduser);
 		
-		AsyncStorage.setItem('USER_KEY',response.data.id)
+		AsyncStorage.setItem('USER_KEY',response.data.parent.iduser)
     return response.status === 200 ? true : false;
 	
 	} catch (error) {
