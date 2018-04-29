@@ -1,40 +1,42 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
   View,
   ActivityIndicator,
   AsyncStorage
-} from "react-native";
-import { Avatar } from "react-native-elements";
+} from 'react-native'
+import { Avatar } from 'react-native-elements'
 
-import { connect } from "react-redux";
-import { getUser, setChild } from "../../actions/userActions";
+import { connect } from 'react-redux'
+import { getUser } from '../../actions/userActions'
+import { setChild } from '../../actions/childActions'
 
 const childrens = [
-  { name: "أسماء", gender: "girl" },
-  { name: "أحمد", gender: "boy" }
-];
+  { name: 'أسماء', gender: 'girl' },
+  { name: 'أحمد', gender: 'boy' }
+]
 
 class Children extends Component {
   async componentDidMount() {
-		const currUserId = await AsyncStorage.getItem("USER_KEY");
-    await this.props.getUser(currUserId);
+    // const currUserId = await AsyncStorage.getItem('USER_KEY')
+    // await this.props.getUser(currUserId)
 
-		const currChildId = await AsyncStorage.getItem("CURR_CHILD_KEY");
-    if (currChildId) {
-			const currChild = this.props.user.data.children.find(
-				obj => obj.idstudent === currChildId
-      );
-      this.props.setChild(currChild);
-    }
+    // //Load last currentChild selectd
+    // const currChildId = await AsyncStorage.getItem('CURR_CHILD_KEY')
+    // if (currChildId) {
+    //   const currChild = this.props.user.data.children.find(
+    //     obj => obj.idstudent === currChildId
+    //   )
+    //   this.props.setChild(currChild)
+    // }
   }
 
   renderChild = (child, i) => {
     const pictureUrl =
-      child.sexe === "male"
-        ? require("../../assets/boy.png")
-        : require("../../assets/girl.png");
+      child.sexe === 'male'
+        ? require('../../assets/boy.png')
+        : require('../../assets/girl.png')
     return (
       <View key={i} style={styles.child}>
         <Avatar
@@ -44,16 +46,17 @@ class Children extends Component {
           source={pictureUrl}
           containerStyle={styles.avatar}
           onPress={() => {
-            this.props.setChild(child);
+            this.props.setChild(child)
+            this.props.navigation.navigate('DrawerOpen')
           }}
         />
         <Text style={styles.title}>
-          {" "}
-          {child.firstnamear + " " + child.lastnamear}{" "}
+          {' '}
+          {child.firstnamear + ' ' + child.lastnamear}{' '}
         </Text>
       </View>
-    );
-  };
+    )
+  }
 
   render() {
     return (
@@ -65,20 +68,20 @@ class Children extends Component {
           !this.props.user.loading &&
           this.props.user.data &&
           this.props.user.data.children.map((child, i) => {
-            return this.renderChild(child, i);
+            return this.renderChild(child, i)
           })}
       </View>
-    );
+    )
   }
 }
 
 const styles = {
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 20,
-    backgroundColor: "#106cc8"
+    backgroundColor: '#106cc8'
   },
   child: {
     margin: 25
@@ -91,10 +94,10 @@ const styles = {
     fontSize: 10
   },
   title: {
-    color: "white",
+    color: 'white',
     fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     textShadowOffset: {
       width: 0,
       height: 3
@@ -102,19 +105,19 @@ const styles = {
     textShadowRadius: 20,
     marginTop: 10
   }
-};
+}
 
 const mapStateToProps = state => {
   return {
-    user: state.user
-  };
-};
+		user: state.user,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     getUser: id => dispatch(getUser(id)),
     setChild: id => dispatch(setChild(id))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Children);
+export default connect(mapStateToProps, mapDispatchToProps)(Children)

@@ -80,7 +80,7 @@ const homework = StackNavigator({
 
 const childrens = StackNavigator({
   الأبناء: {
-    screen: props => <Childrens />,
+    screen: props => <Childrens {...props} />,
     navigationOptions
   }
 })

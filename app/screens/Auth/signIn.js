@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   StyleSheet,
   Text,
@@ -8,17 +8,17 @@ import {
   AsyncStorage,
   Alert,
   Image
-} from "react-native";
-import { Button, Avatar } from "react-native-elements";
+} from 'react-native'
+import { Button, Avatar } from 'react-native-elements'
 
-import { connect } from "react-redux";
-import { signIn } from "../../actions/authActions";
+import { connect } from 'react-redux'
+import { signIn } from '../../actions/authActions'
 
 class SignIn extends React.Component {
   state = {
-    email: "",
-    password: ""
-  };
+    email: '',
+    password: ''
+  }
 
   loginHandler = async () => {
     // (this.state.email === "") ? this.setState({ invalidEmail: true }) : this.setState({ invalidEmail: false }) ;
@@ -27,18 +27,18 @@ class SignIn extends React.Component {
     // 	ToastAndroid.show("عمر البيانات", ToastAndroid.LONG);
     // 	return
     // }
-    await this.props.signIn(this.state.email, this.state.password);
+    await this.props.signIn(this.state.email, this.state.password)
     if (this.props.auth.logged) {
-      this.props.navigation.navigate("AppStack");
+      this.props.navigation.navigate('AuthLoading')
     } else {
-      ToastAndroid.show("بيانات خاطئة", ToastAndroid.LONG);
+      ToastAndroid.show('بيانات خاطئة', ToastAndroid.LONG)
     }
-  };
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require("../../assets/logo.png")} style={styles.logo} />
+        <Image source={require('../../assets/logo.png')} style={styles.logo} />
 
         <Text style={styles.header}>مدرستي</Text>
 
@@ -46,10 +46,10 @@ class SignIn extends React.Component {
           name="email"
           placeholder="البريد الإلكتروني"
           keyboardType="email-address"
-          underlineColorAndroid={this.state.invalidEmail ? "red" : "white"}
+          underlineColorAndroid={this.state.invalidEmail ? 'red' : 'white'}
           style={[
             styles.Input,
-            this.state.invalidEmail ? { color: "red" } : {}
+            this.state.invalidEmail ? { color: 'red' } : {}
           ]}
           value={this.state.email}
           onChangeText={text => this.setState({ email: text, failed: false })}
@@ -58,10 +58,10 @@ class SignIn extends React.Component {
           name="password"
           placeholder="كلمة السر"
           secureTextEntry
-          underlineColorAndroid={this.state.invalidPassword ? "red" : "white"}
+          underlineColorAndroid={this.state.invalidPassword ? 'red' : 'white'}
           style={[
             styles.Input,
-            this.state.invalidPassword ? { color: "red" } : {}
+            this.state.invalidPassword ? { color: 'red' } : {}
           ]}
           value={this.state.password}
           onChangeText={text =>
@@ -77,22 +77,22 @@ class SignIn extends React.Component {
           title="تسجيل الدخول"
         />
         <Button
-          onPress={() => this.props.navigation.navigate("SignUp")}
+          onPress={() => this.props.navigation.navigate('SignUp')}
           buttonStyle={styles.button}
           rounded
           title="تسجيل حساب"
         />
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#106cc8",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#106cc8',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   logo: {
     width: 150,
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 50,
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     textShadowOffset: {
       width: 0,
       height: 3
@@ -109,30 +109,30 @@ const styles = StyleSheet.create({
     textShadowRadius: 30
   },
   Input: {
-    textAlign: "center",
+    textAlign: 'center',
     height: 50,
     width: 300,
     marginTop: 10,
-    color: "white"
+    color: 'white'
   },
   button: {
     marginTop: 20,
     width: 300,
     elevation: 3
   }
-});
+})
 
 const mapStateToProps = state => {
   return {
     auth: state.auth
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     testAction: () => dispatch(testAction()),
     signIn: (email, password) => dispatch(signIn(email, password))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

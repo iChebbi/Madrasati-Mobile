@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class Done extends Component {
+import { connect } from "react-redux";
+import { getHomework } from "../../actions/userActions";
+class Done extends Component {
 
 	render() {
 		return (
@@ -25,3 +27,18 @@ const styles = {
 		fontSize: 10,
 	}
 }
+
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getHomework: id => dispatch(getHomework(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Done);

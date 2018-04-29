@@ -1,21 +1,14 @@
 export const getUser = id => {
   return {
-    type: "GET_USER",
+    type: 'GET_USER',
     payload: {
       request: {
-        method: "POST",
-        url: "/load_user",
-        data: {
+        method: 'GET',
+        url: '/load_user',
+        params: {
           id
         }
       }
     }
-  };
-};
-
-export const setChild = child => {
-  return {
-    type: "SET_CHILD",
-    payload: child
-  };
-};
+  }
+}
