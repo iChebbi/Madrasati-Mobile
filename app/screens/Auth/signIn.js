@@ -1,41 +1,44 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, ToastAndroid } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ToastAndroid,
+  AsyncStorage,
+  Alert,
+  Image
+} from "react-native";
 import { Button, Avatar } from "react-native-elements";
 
-import { signIn } from "../../services/auth";
+import { connect } from "react-redux";
+import { signIn } from "../../actions/authActions";
 
-export default class SignIn extends React.Component {
+class SignIn extends React.Component {
   state = {
     email: "",
     password: ""
   };
 
-  loginHandler = () => {
-    signIn(this.state.email, this.state.password).then(res => {
-      if (!res) {
-        this.setState({ failed: true });
-        ToastAndroid.show("Login Failed", ToastAndroid.LONG);
-      } else this.props.navigation.navigate("AppStack");
-    });
-  };
-
-  highlightErrors = () => {
-    if (this.state.failed)
-      return {
-        color: "red"
-      };
+  loginHandler = async () => {
+    // (this.state.email === "") ? this.setState({ invalidEmail: true }) : this.setState({ invalidEmail: false }) ;
+    // (this.state.password === "") ? this.setState({ invalidPassword: true }) : this.setState({ invalidPassword: false }) ;
+    // if (this.state.invalidEmail || this.state.invalidPassword) {
+    // 	ToastAndroid.show("عمر البيانات", ToastAndroid.LONG);
+    // 	return
+    // }
+    await this.props.signIn(this.state.email, this.state.password);
+    if (this.props.auth.logged) {
+      this.props.navigation.navigate("AppStack");
+    } else {
+      ToastAndroid.show("بيانات خاطئة", ToastAndroid.LONG);
+    }
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Avatar
-          width={150}
-          height={150}
-          rounded
-          source={require("../../assets/logo.jpg")}
-          containerStyle={styles.logo}
-        />
+        <Image source={require("../../assets/logo.png")} style={styles.logo} />
 
         <Text style={styles.header}>مدرستي</Text>
 
@@ -43,8 +46,11 @@ export default class SignIn extends React.Component {
           name="email"
           placeholder="البريد الإلكتروني"
           keyboardType="email-address"
-          underlineColorAndroid={"white"}
-          style={[styles.Input, this.highlightErrors()]}
+          underlineColorAndroid={this.state.invalidEmail ? "red" : "white"}
+          style={[
+            styles.Input,
+            this.state.invalidEmail ? { color: "red" } : {}
+          ]}
           value={this.state.email}
           onChangeText={text => this.setState({ email: text, failed: false })}
         />
@@ -52,8 +58,11 @@ export default class SignIn extends React.Component {
           name="password"
           placeholder="كلمة السر"
           secureTextEntry
-          underlineColorAndroid={"white"}
-          style={[styles.Input, this.highlightErrors()]}
+          underlineColorAndroid={this.state.invalidPassword ? "red" : "white"}
+          style={[
+            styles.Input,
+            this.state.invalidPassword ? { color: "red" } : {}
+          ]}
           value={this.state.password}
           onChangeText={text =>
             this.setState({ password: text, failed: false })
@@ -86,8 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   logo: {
-    margin: 20,
-    elevation: 10
+    width: 150,
+    height: 150
   },
   header: {
     fontSize: 50,
@@ -112,3 +121,18 @@ const styles = StyleSheet.create({
     elevation: 3
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    testAction: () => dispatch(testAction()),
+    signIn: (email, password) => dispatch(signIn(email, password))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
