@@ -14,7 +14,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         loading: false,
-        homework: action.payload.data
+        homework: action.payload.data,
+        homeworkchild: action.payload.config.params.id
       }
     case 'GET_HOMEWORK_FAIL':
       return {

@@ -17,7 +17,10 @@ const C = ['الرياضيات', 'الرياضيات']
 
 class HomeworkDue extends Component {
   componentDidMount() {
-    // this.props.getHomework(this.props.child.currentChild.idstudent)
+    if (
+      this.props.child.currentChild.idstudent !== this.props.child.homeworkchild
+    )
+      this.props.getHomework(this.props.child.currentChild.idstudent)
   }
 
   parseDate = date => {

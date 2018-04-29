@@ -26,11 +26,11 @@ class AuthLoading extends Component {
             obj => obj.idstudent === currChildId
           )
           this.props.setChild(currChild)
-          this.props.getHomework(this.props.child.currentChild.idstudent)
         } else {
           if (this.props.user.data.children[0])
             this.props.setChild(this.props.user.data.children[0])
         }
+        this.props.getHomework(this.props.child.currentChild.idstudent)
         this.props.navigation.navigate('AppStack')
       } else {
         this.props.navigation.navigate('AuthStack')
