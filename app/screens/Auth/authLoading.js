@@ -5,7 +5,7 @@ import {
   Text,
   View,
   Image,
-  AsyncStorage
+	AsyncStorage
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -31,7 +31,7 @@ class AuthLoading extends Component {
             this.props.setChild(this.props.user.data.children[0])
         }
         this.props.getHomework(this.props.child.currentChild.idstudent)
-        this.props.navigation.navigate('AppStack')
+        this.props.navigation.navigate('AppStack') 
       } else {
         this.props.navigation.navigate('AuthStack')
       }

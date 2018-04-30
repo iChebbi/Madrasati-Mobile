@@ -16,21 +16,23 @@ import {
 } from 'react-navigation'
 import { Entypo } from '@expo/vector-icons'
 
+import DrawerContent from './drawer'
+
+// Screens import
 import AuthLoading from '../screens/Auth/authLoading'
 
 import SignIn from '../screens/Auth/signIn'
 import SignUp from '../screens/Auth/signUp'
 import Logout from '../screens/Auth/logout'
 
-import DrawerContent from './drawer'
+import homeworkList from '../screens/Homework/homeworkList'
+import homeworkDetails from '../screens/Homework/homeworkDetails'
+
+import Childrens from '../screens/Children/children'
 
 import Hello from '../screens/hello'
 
-import inProgress from '../screens/Homework/inProgress'
-import done from '../screens/Homework/done'
-import Childrens from '../screens/Children/children'
-
-const navigationOptions = props => ({
+const navigationOptionsWithDrawer = props => ({
   headerRight: (
     <TouchableOpacity onPress={() => props.navigation.navigate('DrawerOpen')}>
       <Entypo name="menu" size={30} color="white" style={{ marginRight: 10 }} />
@@ -49,13 +51,26 @@ const navigationOptions = props => ({
   }
 })
 
+const navigationOptionsWithBack = props => ({
+  headerRight: <View style={{ margin: 15 }} />,
+  headerTitle: `${props.navigation.state.routeName}`,
+  headerTintColor: 'white',
+  headerTitleStyle: {
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  headerStyle: {
+    backgroundColor: '#106cc8'
+  }
+})
+
 const TabBar = TabNavigator(
   {
-    جاري: {
-      screen: inProgress
+    جارية: {
+      screen: homeworkList
     },
-    تم: {
-      screen: inProgress
+    سابقة: {
+      screen: homeworkList
     }
   },
   {
@@ -73,15 +88,19 @@ const TabBar = TabNavigator(
 
 const homework = StackNavigator({
   'الواجبات المنزلية': {
-    screen: props => <TabBar />,
-    navigationOptions
+    screen: TabBar,
+    navigationOptions: navigationOptionsWithDrawer
+  },
+  'معطيات الواجب': {
+    screen: homeworkDetails,
+    navigationOptions: navigationOptionsWithBack
   }
 })
 
 const childrens = StackNavigator({
   الأبناء: {
-    screen: props => <Childrens {...props} />,
-    navigationOptions
+    screen: Childrens,
+    navigationOptions: navigationOptionsWithDrawer
   }
 })
 
@@ -111,12 +130,7 @@ const AuthStack = StackNavigator(
     },
     SignUp: {
       screen: SignUp,
-      navigationOptions: {
-        headerStyle: {
-          backgroundColor: '#106cc8'
-        },
-        headerTintColor: 'white'
-      }
+      navigationOptions: navigationOptionsWithBack
     }
   },
   {

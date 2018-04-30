@@ -1,21 +1,12 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  ListView,
-  SectionList,
-  ActivityIndicator
-} from 'react-native'
+import { Text, SectionList, ActivityIndicator, Alert } from 'react-native'
 
 import { connect } from 'react-redux'
 import { getHomework } from '../../actions/childActions'
 
-const A = ['الرياضيات', 'الرياضيات', <Text>Shit</Text>]
-const B = ['الرياضيات', 'الرياضيات', 'الرياضيات', 'الرياضيات', 'الرياضيات']
-const C = ['الرياضيات', 'الرياضيات']
+import { parseDate, today } from '../../utils/date'
 
-class HomeworkDue extends Component {
+class HomeworkList extends Component {
   componentDidMount() {
     if (
       this.props.child.currentChild.idstudent !== this.props.child.homeworkchild
@@ -23,42 +14,26 @@ class HomeworkDue extends Component {
       this.props.getHomework(this.props.child.currentChild.idstudent)
   }
 
-  parseDate = date => {
-    const dateObj = new Date()
-    const year = dateObj.getFullYear()
-    const month = ('0' + (dateObj.getMonth() + 1)).slice(-2)
-    const day = dateObj.getDate()
-
-    const today = year + '/' + month + '/' + day
-    const tomorrow = year + '/' + month + '/' + (day + 1)
-    const yesterday = year + '/' + month + '/' + (day - 1)
-
-    switch (date) {
-      case today:
-        return 'اليوم'
-      case tomorrow:
-        return 'غدا'
-      case yesterday:
-        return 'البارحة'
-      default:
-        return date
-    }
-  }
-
   parseSections = homeworkGroupedByDate => {
-    return Object.keys(homeworkGroupedByDate).map(date => {
-      return {
-        title: this.parseDate(date),
-        data: homeworkGroupedByDate[date].map(homework => homework.nom)
-      }
-    })
+    return Object.keys(homeworkGroupedByDate)
+      .filter(date => {
+        switch (this.props.navigation.state.routeName) {
+          case 'جارية':
+            return today <= date
+          case 'سابقة':
+            return today > date
+          default:
+            return date
+        }
+      })
+      .map(date => {
+        return {
+          title: parseDate(date),
+          data: homeworkGroupedByDate[date].map(homework => homework.nom),
+          content: homeworkGroupedByDate[date].map(homework => homework)
+        }
+      })
   }
-
-  sections = [
-    { title: 'اليوم', data: A },
-    { title: 'البارحة', data: B },
-    { title: 'سابقا', data: C }
-  ]
 
   render() {
     return (
@@ -76,8 +51,18 @@ class HomeworkDue extends Component {
               renderSectionHeader={({ section }) => (
                 <Text style={styles.SectionHeaderStyle}> {section.title} </Text>
               )}
-              renderItem={({ item }) => (
-                <Text style={styles.SectionListItemStyle}> {item} </Text>
+              renderItem={({ item, index, section }) => (
+                <Text
+                  onPress={() => {
+                    this.props.navigation.navigate(
+                      'معطيات الواجب',
+                      section.content
+                    )
+                  }}
+                  style={styles.SectionListItemStyle}
+                >
+                  {item}
+                </Text>
               )}
               keyExtractor={(item, index) => index}
             />
@@ -126,4 +111,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeworkDue)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeworkList)
