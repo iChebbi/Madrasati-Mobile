@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { Card, ListItem, Button } from 'react-native-elements'
-import { Entypo, FontAwesome } from '@expo/vector-icons'
+import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 
-import { timestampToDate, timestampToTime, parseDate } from '../../utils/date'
+import { timestampToDate, parseDate } from '../../utils/date'
 
 class HomeworkDetails extends Component {
   render() {
     const { params } = this.props.navigation.state
 
-    const homeworkContent = params[0]
+    const homeworkContent = params
 
     return (
       <View style={styles.container}>
@@ -21,10 +21,10 @@ class HomeworkDetails extends Component {
           <View style={styles.infoBar}>
             <View style={styles.infoBarElement}>
               <Text style={styles.infoBarText}>
-                {timestampToTime(homeworkContent.dateend * 1000)}
+                {homeworkContent.firstnamear + ' ' + homeworkContent.lastnamear}
               </Text>
-              <Entypo
-                name="clock"
+              <MaterialCommunityIcons
+                name="account"
                 size={25}
                 color="black"
                 style={{ marginHorizontal: 10 }}
@@ -42,7 +42,7 @@ class HomeworkDetails extends Component {
               />
             </View>
             <View style={styles.infoBarElement}>
-              <Text style={styles.infoBarText}>{homeworkContent.idcourse}</Text>
+              <Text style={styles.infoBarText}>{homeworkContent.code}</Text>
               <Entypo
                 name="book"
                 size={25}
@@ -57,30 +57,15 @@ class HomeworkDetails extends Component {
             </Text>
           </View>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignContent: 'center'
-            }}
+            style={styles.fileContainer}
           >
-            <TouchableOpacity
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#e0e0e1',
-                borderRadius: 100,
-                borderWidth: 2,
-                borderColor: 'white',
-                padding: 10
-              }}
-            >
+            <TouchableOpacity style={styles.fileBtn}>
               <Text>موضوع التمرين</Text>
               <FontAwesome
                 name="file-pdf-o"
                 size={15}
                 color="black"
-                style={{ marginHorizontal: 10 }}
+                style={{ marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>
@@ -102,24 +87,37 @@ const styles = {
   },
   descriptionText: {
     fontSize: 20
-  },
-  fileContainer: {
-    flexDirection: 'row'
+	},
+	fileContainer : {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignContent: 'center'
+	},
+  fileBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e0e0e1',
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: 'white',
+    padding: 10
   },
   image: {
     width: 150,
     height: 150
   },
   infoBar: {
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'row'
   },
   infoBarText: {
-    fontSize: 20
+    fontSize: 15
   },
   infoBarElement: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   text: {
     elevation: 10,

@@ -8,8 +8,10 @@ import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
 import reducer from './app/reducers'
 
+import { baseURL } from './app/utils/env'
+
 const client = axios.create({
-  baseURL: 'http://192.168.1.92/madrasati/api',
+  baseURL: baseURL + '/api',
   responseType: 'json'
 })
 

@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { Text, SectionList, ActivityIndicator, Alert } from 'react-native'
+import {
+  View,
+  Text,
+  SectionList,
+  ActivityIndicator,
+  TouchableNativeFeedback
+} from 'react-native'
 
 import { connect } from 'react-redux'
 import { getHomework } from '../../actions/childActions'
@@ -29,43 +35,65 @@ class HomeworkList extends Component {
       .map(date => {
         return {
           title: parseDate(date),
-          data: homeworkGroupedByDate[date].map(homework => homework.nom),
-          content: homeworkGroupedByDate[date].map(homework => homework)
+          data: homeworkGroupedByDate[date]
         }
       })
   }
 
   render() {
+    const sections =
+      this.props.child && !this.props.child.loading && this.props.child.homework
+        ? this.parseSections(this.props.child.homework)
+        : ''
+
     return (
       <React.Fragment>
         {this.props.child.loading && (
-          <ActivityIndicator color="black" size={50} />
+          <View style={styles.container}>
+            <ActivityIndicator color="black" size={50} />
+          </View>
         )}
-
         {this.props.child &&
           !this.props.child.loading &&
-          this.props.child.homework && (
+          this.props.child.homework &&
+          sections.length !== 0 && (
             <SectionList
-              style={styles.container}
-              sections={this.parseSections(this.props.child.homework)}
+              style={styles.flex}
+              sections={sections}
               renderSectionHeader={({ section }) => (
-                <Text style={styles.SectionHeaderStyle}> {section.title} </Text>
+                <Text style={styles.sectionHeaderStyle}> {section.title} </Text>
               )}
               renderItem={({ item, index, section }) => (
-                <Text
+                <TouchableNativeFeedback
                   onPress={() => {
                     this.props.navigation.navigate(
                       'معطيات الواجب',
-                      section.content
+                      section.data[index]
                     )
                   }}
-                  style={styles.SectionListItemStyle}
                 >
-                  {item}
-                </Text>
+                  <View style={styles.sectionListItemStyle}>
+                    <View style={styles.sectionListItemText}>
+                      <Text>{section.data[index].nom}</Text>
+                      <Text>
+                        {section.data[index].description.slice(0, 50) + '...'}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text>{section.data[index].code}</Text>
+                    </View>
+                  </View>
+                </TouchableNativeFeedback>
               )}
               keyExtractor={(item, index) => index}
             />
+          )}
+
+        {!this.props.child.loading &&
+          sections.length === 0 && (
+            <View style={styles.container}>
+              <Text>لا يوجد واجبات</Text>
+            </View>
           )}
       </React.Fragment>
     )
@@ -74,13 +102,18 @@ class HomeworkList extends Component {
 
 const styles = {
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  list: {
     flex: 1
   },
   text: {
     elevation: 10,
     fontSize: 10
   },
-  SectionHeaderStyle: {
+  sectionHeaderStyle: {
     backgroundColor: '#E5E5E5',
     fontSize: 15,
     padding: 3,
@@ -89,14 +122,17 @@ const styles = {
     color: 'black',
     elevation: 5
   },
-  SectionListItemStyle: {
-    fontSize: 15,
+  sectionListItemText: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    flex: 10
+  },
+  sectionListItemStyle: {
+    flexDirection: 'row-reverse',
     padding: 15,
     elevation: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
-    textAlign: 'right',
-    color: '#000',
     backgroundColor: '#F5F5F5'
   }
 }

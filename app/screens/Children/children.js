@@ -12,38 +12,16 @@ import { connect } from 'react-redux'
 import { getUser } from '../../actions/userActions'
 import { setChild } from '../../actions/childActions'
 
-const childrens = [
-  { name: 'أسماء', gender: 'girl' },
-  { name: 'أحمد', gender: 'boy' }
-]
-
+import { pictureUrl } from '../../utils/profilePicture'
 class Children extends Component {
-  async componentDidMount() {
-    // const currUserId = await AsyncStorage.getItem('USER_KEY')
-    // await this.props.getUser(currUserId)
-
-    // //Load last currentChild selectd
-    // const currChildId = await AsyncStorage.getItem('CURR_CHILD_KEY')
-    // if (currChildId) {
-    //   const currChild = this.props.user.data.children.find(
-    //     obj => obj.idstudent === currChildId
-    //   )
-    //   this.props.setChild(currChild)
-    // }
-  }
-
   renderChild = (child, i) => {
-    const pictureUrl =
-      child.sexe === 'male'
-        ? require('../../assets/boy.png')
-        : require('../../assets/girl.png')
     return (
       <View key={i} style={styles.child}>
         <Avatar
           width={150}
           height={150}
           rounded
-          source={pictureUrl}
+          source={pictureUrl(child)}
           containerStyle={styles.avatar}
           onPress={() => {
             this.props.setChild(child)
@@ -52,7 +30,7 @@ class Children extends Component {
         />
         <Text style={styles.title}>
           {' '}
-          {child.firstnamear + ' ' + child.lastnamear}{' '}
+          {child.firstnamear + ' ' + child.lastnamear}
         </Text>
       </View>
     )
@@ -109,7 +87,7 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
-		user: state.user,
+    user: state.user
   }
 }
 

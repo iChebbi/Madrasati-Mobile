@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { DrawerItems, DrawerNavigator } from 'react-navigation'
 import { Avatar } from 'react-native-elements'
 
+import { pictureUrl } from '../utils/profilePicture'
+
 import { connect } from 'react-redux'
 
 class DrawerContent extends React.Component {
@@ -20,11 +22,7 @@ class DrawerContent extends React.Component {
               width={120}
               height={120}
               rounded
-              source={
-                this.props.currentChild.sexe === 'male'
-                  ? require('../assets/boy.png')
-                  : require('../assets/girl.png')
-              }
+              source={pictureUrl(this.props.currentChild)}
               containerStyle={styles.logo}
             />
             <Text style={styles.title}>
@@ -42,7 +40,8 @@ class DrawerContent extends React.Component {
 
 const styles = StyleSheet.create({
   logo: {
-    marginTop: 20
+    marginTop: 20,
+    elevation: 10
   },
   currentUser: {
     backgroundColor: '#106cc8',

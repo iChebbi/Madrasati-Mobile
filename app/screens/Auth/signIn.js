@@ -17,19 +17,32 @@ import { signIn } from '../../actions/authActions'
 class SignIn extends React.Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    errorEmail: false,
+    errorPassword: false
   }
 
   loginHandler = async () => {
-    // (this.state.email === "") ? this.setState({ invalidEmail: true }) : this.setState({ invalidEmail: false }) ;
-    // (this.state.password === "") ? this.setState({ invalidPassword: true }) : this.setState({ invalidPassword: false }) ;
-    // if (this.state.invalidEmail || this.state.invalidPassword) {
-    // 	ToastAndroid.show("عمر البيانات", ToastAndroid.LONG);
-    // 	return
-    // }
+    this.setState({
+      errorEmail: false,
+      errorPassword: false
+    })
+
+    if (!this.state.password.length) this.setState({ errorPassword: true })
+
+    if (!this.state.email.length) this.setState({ errorEmail: true })
+
+    if (this.state.errorEmail || this.state.errorPassword) {
+      ToastAndroid.show('عمر البيانات', ToastAndroid.LONG)
+      return
+    }
+
     await this.props.signIn(this.state.email, this.state.password)
+
     if (this.props.auth.logged) {
       this.props.navigation.navigate('AuthLoading')
+    } else if (this.props.auth.error) {
+      ToastAndroid.show('خطأ في الإتصال بالشبكة', ToastAndroid.LONG)
     } else {
       ToastAndroid.show('بيانات خاطئة', ToastAndroid.LONG)
     }
@@ -46,27 +59,19 @@ class SignIn extends React.Component {
           name="email"
           placeholder="البريد الإلكتروني"
           keyboardType="email-address"
-          underlineColorAndroid={this.state.invalidEmail ? 'red' : 'white'}
-          style={[
-            styles.Input,
-            this.state.invalidEmail ? { color: 'red' } : {}
-          ]}
+          underlineColorAndroid={this.state.errorEmail ? 'red' : 'white'}
+          style={styles.Input}
           value={this.state.email}
-          onChangeText={text => this.setState({ email: text, failed: false })}
+          onChangeText={text => this.setState({ email: text })}
         />
         <TextInput
           name="password"
           placeholder="كلمة السر"
           secureTextEntry
-          underlineColorAndroid={this.state.invalidPassword ? 'red' : 'white'}
-          style={[
-            styles.Input,
-            this.state.invalidPassword ? { color: 'red' } : {}
-          ]}
+          underlineColorAndroid={this.state.errorPassword ? 'red' : 'white'}
+          style={styles.Input}
           value={this.state.password}
-          onChangeText={text =>
-            this.setState({ password: text, failed: false })
-          }
+          onChangeText={text => this.setState({ password: text })}
         />
 
         <Button
@@ -76,12 +81,12 @@ class SignIn extends React.Component {
           rounded
           title="تسجيل الدخول"
         />
-        <Button
+        {/* <Button
           onPress={() => this.props.navigation.navigate('SignUp')}
           buttonStyle={styles.button}
           rounded
           title="تسجيل حساب"
-        />
+        /> */}
       </View>
     )
   }
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 150,
-		height: 150
+    height: 150
   },
   header: {
     fontSize: 50,
