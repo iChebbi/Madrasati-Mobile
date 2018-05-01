@@ -6,13 +6,14 @@ import {
   ActivityIndicator,
   TouchableNativeFeedback
 } from 'react-native'
+import { Avatar } from 'react-native-elements'
 
 import { connect } from 'react-redux'
 import { getHomework } from '../../actions/childActions'
 
 import { parseDate, today } from '../../utils/date'
 
-class HomeworkList extends Component {
+class ConversationsList extends Component {
   componentDidMount() {
     if (
       this.props.child.currentChild.idstudent !== this.props.child.homeworkchild
@@ -24,10 +25,6 @@ class HomeworkList extends Component {
     return Object.keys(homeworkGroupedByDate)
       .filter(date => {
         switch (this.props.navigation.state.routeName) {
-          case 'جارية':
-            return today <= date
-          case 'سابقة':
-            return today > date
           default:
             return date
         }
@@ -60,29 +57,30 @@ class HomeworkList extends Component {
             <SectionList
               style={styles.flex}
               sections={sections}
-              renderSectionHeader={({ section }) => (
-                <Text style={styles.sectionHeaderStyle}> {section.title} </Text>
-              )}
+              renderSectionHeader={({ section }) => <View />}
               renderItem={({ item, index, section }) => (
-                <TouchableNativeFeedback
-                  onPress={() => {
-                    this.props.navigation.navigate(
-                      'معطيات الواجب',
-                      section.data[index]
-                    )
-                  }}
-                >
+                <TouchableNativeFeedback>
                   <View style={styles.sectionListItemStyle}>
                     <View style={styles.sectionListItemText}>
-                      <Text style={styles.boldText}>
-                        {section.data[index].nom}
-                      </Text>
+                      <View style={styles.inlineItemHeader}>
+                        <Text style={styles.smallText}>الآن</Text>
+                        <Text style={styles.boldText}>جون دو</Text>
+                      </View>
                       <Text style={styles.smallText}>
-                        {section.data[index].description.slice(0, 50) + '...'}
+                        تعد بداية بالعمل جديداً في. يتم حصدت فقامت الإتحاد .
                       </Text>
                     </View>
                     <View>
-                      <Text>{section.data[index].code}</Text>
+                      <Avatar
+                        width={50}
+                        height={50}
+                        rounded
+                        source={require('../../assets/maleTeacher.png')}
+                        onPress={() => {
+                          this.props.setChild(child)
+                          this.props.navigation.navigate('DrawerOpen')
+                        }}
+                      />
                     </View>
                   </View>
                 </TouchableNativeFeedback>
@@ -94,7 +92,7 @@ class HomeworkList extends Component {
         {!this.props.child.loading &&
           sections.length === 0 && (
             <View style={styles.container}>
-              <Text>لا يوجد واجبات</Text>
+              <Text>لا يوجد ملاحظات</Text>
             </View>
           )}
       </React.Fragment>
@@ -156,4 +154,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeworkList)
+export default connect(mapStateToProps, mapDispatchToProps)(ConversationsList)

@@ -5,7 +5,7 @@ import {
   Text,
   View,
   Image,
-	AsyncStorage
+  AsyncStorage
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -20,18 +20,19 @@ class AuthLoading extends Component {
         await this.props.getUser(userToken)
 
         //Load last currentChild selectd or init with the first child
-        const currChildId = await AsyncStorage.getItem('CURR_CHILD_KEY')
+        let currChildId = await AsyncStorage.getItem('CURR_CHILD_KEY')
         if (currChildId) {
           const currChild = this.props.user.data.children.find(
             obj => obj.idstudent === currChildId
           )
-          this.props.setChild(currChild)
+          if (currChild) this.props.setChild(currChild)
         } else {
           if (this.props.user.data.children[0])
             this.props.setChild(this.props.user.data.children[0])
         }
-        this.props.getHomework(this.props.child.currentChild.idstudent)
-        this.props.navigation.navigate('AppStack') 
+        currChildId = await AsyncStorage.getItem('CURR_CHILD_KEY')
+        this.props.getHomework(currChildId)
+        this.props.navigation.navigate('AppStack')
       } else {
         this.props.navigation.navigate('AuthStack')
       }

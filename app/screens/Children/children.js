@@ -58,7 +58,8 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    paddingLeft: 5,
+    flexWrap: 'wrap',
     backgroundColor: '#106cc8'
   },
   child: {
