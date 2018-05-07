@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   TouchableNativeFeedback
 } from 'react-native'
-import { Avatar } from 'react-native-elements'
+import { Avatar, Card } from 'react-native-elements'
 
 import { connect } from 'react-redux'
 import { getHomework } from '../../actions/childActions'
@@ -59,9 +59,15 @@ class ConversationsList extends Component {
               sections={sections}
               renderSectionHeader={({ section }) => <View />}
               renderItem={({ item, index, section }) => (
-                <TouchableNativeFeedback>
-                  <View style={styles.sectionListItemStyle}>
-                    <View style={styles.sectionListItemText}>
+                <Card containerStyle={{ margin: 0 }}>
+                  <View style={styles.messageCard}>
+                    <Avatar
+                      width={70}
+                      height={70}
+                      rounded
+                      source={require('../../assets/maleTeacher.png')}
+                    />
+                    <View style={styles.cardText}>
                       <View style={styles.inlineItemHeader}>
                         <Text style={styles.smallText}>الآن</Text>
                         <Text style={styles.boldText}>جون دو</Text>
@@ -70,20 +76,8 @@ class ConversationsList extends Component {
                         تعد بداية بالعمل جديداً في. يتم حصدت فقامت الإتحاد .
                       </Text>
                     </View>
-                    <View>
-                      <Avatar
-                        width={50}
-                        height={50}
-                        rounded
-                        source={require('../../assets/maleTeacher.png')}
-                        onPress={() => {
-                          this.props.setChild(child)
-                          this.props.navigation.navigate('DrawerOpen')
-                        }}
-                      />
-                    </View>
                   </View>
-                </TouchableNativeFeedback>
+                </Card>
               )}
               keyExtractor={(item, index) => index}
             />
@@ -106,6 +100,14 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center'
   },
+  messageCard: {
+    margin: 0,
+    flexDirection: 'row'
+  },
+  cardText: {
+    flexDirection: 'column',
+    flex: 1
+  },
   list: {
     flex: 1
   },
@@ -118,29 +120,8 @@ const styles = {
   smallText: { color: 'grey' },
   inlineItemHeader: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'baseline'
-  },
-  sectionHeaderStyle: {
-    backgroundColor: '#E5E5E5',
-    fontSize: 15,
-    padding: 3,
-    paddingRight: 15,
-    textAlign: 'right',
-    color: 'black',
-    elevation: 5
-  },
-  sectionListItemText: {
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    flex: 10
-  },
-  sectionListItemStyle: {
-    flexDirection: 'row-reverse',
-    padding: 15,
-    elevation: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
-    backgroundColor: '#F5F5F5'
   }
 }
 

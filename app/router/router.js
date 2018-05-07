@@ -25,12 +25,18 @@ import SignIn from '../screens/Auth/signIn'
 import SignUp from '../screens/Auth/signUp'
 import Logout from '../screens/Auth/logout'
 
+import stats from '../screens/Stats/stats'
+
 import children from '../screens/Children/children'
 
 import homeworkList from '../screens/Homework/homeworkList'
 import homeworkDetails from '../screens/Homework/homeworkDetails'
 
-import conversationsList from '../screens/conversations/conversationsList'
+import conversationsList from '../screens/Conversations/conversationsList'
+
+import settings from '../screens/Settings/settings'
+
+import exams from '../screens/Exams/exams'
 
 import Hello from '../screens/hello'
 
@@ -88,6 +94,13 @@ const TabBar = TabNavigator(
   }
 )
 
+const Stats = StackNavigator({
+  إحصائيات: {
+    screen: stats,
+    navigationOptions: navigationOptionsWithDrawer
+  }
+})
+
 const Children = StackNavigator({
   الأبناء: {
     screen: children,
@@ -113,13 +126,28 @@ const Conversations = StackNavigator({
   }
 })
 
+const Exams = StackNavigator({
+  الفروض: {
+    screen: exams,
+    navigationOptions: navigationOptionsWithDrawer
+  }
+})
+
+const Settings = StackNavigator({
+  الإعدادات: {
+    screen: settings,
+    navigationOptions: navigationOptionsWithDrawer
+  }
+})
+
 const AppStack = DrawerNavigator(
   {
+    إحصائيات: { screen: Stats },
     الأبناء: { screen: Children },
     'الواجبات المنزلية': { screen: Homework },
     الملاحظات: { screen: Conversations },
-    الفروض: { screen: Hello },
-    الإعدادات: { screen: Hello },
+    الفروض: { screen: Exams },
+    الإعدادات: { screen: Settings },
     الخروج: { screen: Logout }
   },
   {

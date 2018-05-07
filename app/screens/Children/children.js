@@ -4,7 +4,9 @@ import {
   Text,
   View,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  Animated,
+  Easing
 } from 'react-native'
 import { Avatar } from 'react-native-elements'
 
@@ -14,24 +16,37 @@ import { setChild } from '../../actions/childActions'
 
 import { pictureUrl } from '../../utils/profilePicture'
 class Children extends Component {
+  state = {
+    scale: new Animated.Value(1.25)
+  }
+
+  componentDidMount() {
+    Animated.timing(this.state.scale, {
+      toValue: 1,
+      easing: Easing.bounce,
+      duration: 500
+    }).start()
+  }
+
   renderChild = (child, i) => {
     return (
       <View key={i} style={styles.child}>
-        <Avatar
-          width={150}
-          height={150}
-          rounded
-          source={pictureUrl(child)}
-          containerStyle={styles.avatar}
-          onPress={() => {
-            this.props.setChild(child)
-            this.props.navigation.navigate('DrawerOpen')
-          }}
-        />
-        <Text style={styles.title}>
-          {' '}
-          {child.firstnamear + ' ' + child.lastnamear}
-        </Text>
+        <Animated.View style={{ transform: [{ scale: this.state.scale }] }}>
+          <Avatar
+            width={150}
+            height={150}
+            rounded
+            source={pictureUrl(child)}
+            containerStyle={styles.avatar}
+            onPress={() => {
+              this.props.setChild(child)
+              this.props.navigation.navigate('DrawerOpen')
+            }}
+          />
+          <Text style={styles.title}>
+            {child.firstnamear + ' ' + child.lastnamear}
+          </Text>
+        </Animated.View>
       </View>
     )
   }

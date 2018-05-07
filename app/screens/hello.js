@@ -19,9 +19,5 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		margin: 20,
-	},
-	text: {
-		elevation: 10,
-		fontSize: 10,
 	}
 }

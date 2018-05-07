@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import { Card, ListItem, Button } from 'react-native-elements'
+import { Card } from 'react-native-elements'
 import { Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { timestampToDate, parseDate } from '../../utils/date'
@@ -14,7 +14,7 @@ class HomeworkDetails extends Component {
     return (
       <View style={styles.container}>
         <Card
-          containerStyle={{ flex: 1 }}
+          containerStyle={{ flex: 1, margin: 10 }}
           titleStyle={{ fontSize: 35, paddingVertical: 20 }}
           title={homeworkContent.nom}
         >
@@ -32,7 +32,7 @@ class HomeworkDetails extends Component {
             </View>
             <View style={styles.infoBarElement}>
               <Text style={styles.infoBarText}>
-                {parseDate(timestampToDate(homeworkContent.dateend * 1000))}
+                {parseDate(timestampToDate(homeworkContent.dateend))}
               </Text>
               <Entypo
                 name="calendar"
@@ -52,13 +52,11 @@ class HomeworkDetails extends Component {
             </View>
           </View>
           <View style={styles.descriptionContainer}>
-            <Text style={styles.descriptionText}>
+            <Text style={{ fontWeight: '100', fontSize: 15 }}>
               {homeworkContent.description}
             </Text>
           </View>
-          <View
-            style={styles.fileContainer}
-          >
+          <View style={styles.fileContainer}>
             <TouchableOpacity style={styles.fileBtn}>
               <Text>موضوع التمرين</Text>
               <FontAwesome
@@ -80,19 +78,20 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 20
+    paddingBottom: 15
   },
   descriptionContainer: {
-    paddingVertical: 50
+		paddingVertical: 50,
+		flex : 1
   },
   descriptionText: {
     fontSize: 20
-	},
-	fileContainer : {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignContent: 'center'
-	},
+  },
+  fileContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center'
+  },
   fileBtn: {
     flexDirection: 'row',
     justifyContent: 'center',

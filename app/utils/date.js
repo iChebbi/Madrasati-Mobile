@@ -8,7 +8,7 @@ const tomorrow = currYear + '/' + currMonth + '/' + (currDay + 1)
 const yesterday = currYear + '/' + currMonth + '/' + (currDay - 1)
 
 export const timestampToDate = timestamp => {
-  const dateObj = new Date(timestamp)
+  const dateObj = new Date(timestamp * 1000)
   const year = dateObj.getFullYear()
   const month = ('0' + (dateObj.getMonth() + 1)).slice(-2)
   const day = dateObj.getDate() + 1
@@ -17,7 +17,7 @@ export const timestampToDate = timestamp => {
 }
 
 export const timestampToTime = timestamp => {
-  const dateObj = new Date(timestamp)
+  const dateObj = new Date(timestamp * 1000)
   return dateObj.getHours() + ':' + ('0' + (dateObj.getMinutes() + 1)).slice(-2)
 }
 
