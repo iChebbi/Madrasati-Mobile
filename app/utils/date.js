@@ -1,7 +1,7 @@
 const currDateObj = new Date()
 const currYear = currDateObj.getFullYear()
 const currMonth = ('0' + (currDateObj.getMonth() + 1)).slice(-2)
-const currDay = currDateObj.getDate()
+const currDay = ('0' + currDateObj.getDate()).slice(-2)
 
 export const today = currYear + '/' + currMonth + '/' + currDay
 const tomorrow = currYear + '/' + currMonth + '/' + (currDay + 1)
