@@ -1,11 +1,15 @@
 const currDateObj = new Date()
 const currYear = currDateObj.getFullYear()
 const currMonth = ('0' + (currDateObj.getMonth() + 1)).slice(-2)
-const currDay = ('0' + currDateObj.getDate()).slice(-2)
+const currDay = currDateObj.getDate()
 
-export const today = currYear + '/' + currMonth + '/' + currDay
-const tomorrow = currYear + '/' + currMonth + '/' + (currDay + 1)
-const yesterday = currYear + '/' + currMonth + '/' + (currDay - 1)
+export const today = currYear + '/' + currMonth + '/' +  ('0' + currDay).slice(-2)
+const tomorrow = currYear + '/' + currMonth + '/' + (('0' + (currDay +1)).slice(-2))
+const yesterday = currYear + '/' + currMonth + '/' + (('0' + (currDay -1)).slice(-2))
+
+console.log("today : " + today)
+console.log("tomorrow : " + tomorrow)
+console.log("yesterday : " + yesterday)
 
 export const timestampToDate = timestamp => {
   const dateObj = new Date(timestamp * 1000)
