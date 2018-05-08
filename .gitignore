@@ -69,3 +69,5 @@ package-lock.json
 .expo
 
 .vscode/
+
+app/utils/env.js
