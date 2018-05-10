@@ -9,12 +9,11 @@ It enables parents to check on their children activity in their school.
 
 ## Table of Contents
 
-* [Prerequisites](#Prerequisites)
-* [Installing](#Installing)
-* [Running](#Running)
-* [Built With](#Built-with)
-* [Todo](#Todo)
-* [License](#License)
+* [prerequisites](#prerequisites)
+* [installing](#installing)
+* [running](#running)
+* [built With](#built-with)
+* [todo](#todo)
 
 ### Prerequisites
 
@@ -22,7 +21,7 @@ Before we start make sure you have installed :
 
 * Javascript Package Manager : NPM or Yarn
 * Android/iOS Simulator along with required SDK or [Expo Mobile Client](https://expo.io/tools#client)
-* [Madrasati Server](https://gitlab.com/benyaalaamir/madrasati) Along its dependecies
+* [Madrasati Server](https://gitlab.com/benyaalaamir/madrasati) Along its dependencies
 
 ### Installing
 
@@ -52,7 +51,3 @@ Before we start make sure you have installed :
 * Implement more Madrasati Features :Exams calendars, Professor remarks, More information on Stats screen
 * Push Notification on new Homework assignments
 * Integrate JWT Authentification
-
-## License
-
-This project is licensed under the MIT License - see the `LICENSE.md` file for details
