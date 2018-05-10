@@ -7,10 +7,6 @@ export const today = currYear + '/' + currMonth + '/' +  ('0' + currDay).slice(-
 const tomorrow = currYear + '/' + currMonth + '/' + (('0' + (currDay +1)).slice(-2))
 const yesterday = currYear + '/' + currMonth + '/' + (('0' + (currDay -1)).slice(-2))
 
-console.log("today : " + today)
-console.log("tomorrow : " + tomorrow)
-console.log("yesterday : " + yesterday)
-
 export const timestampToDate = timestamp => {
   const dateObj = new Date(timestamp * 1000)
   const year = dateObj.getFullYear()
