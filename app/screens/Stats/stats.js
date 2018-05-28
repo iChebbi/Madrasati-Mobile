@@ -4,7 +4,8 @@ import {
   Text,
   View,
   TouchableNativeFeedback,
-  ScrollView
+	ScrollView,
+	ActivityIndicator
 } from 'react-native'
 
 import { Card, Avatar } from 'react-native-elements'

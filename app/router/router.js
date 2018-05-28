@@ -5,7 +5,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native'
 import {
   StackNavigator,
@@ -14,7 +15,11 @@ import {
   TabNavigator,
   DrawerItems
 } from 'react-navigation'
-import { Entypo } from '@expo/vector-icons'
+import { Entypo, MaterialIcons } from '@expo/vector-icons'
+
+import { connect } from 'react-redux'
+import { getUser } from '../actions/userActions'
+import { getHomework } from '../actions/childActions'
 
 import DrawerContent from './drawer'
 
@@ -22,7 +27,6 @@ import DrawerContent from './drawer'
 import AuthLoading from '../screens/Auth/authLoading'
 
 import SignIn from '../screens/Auth/signIn'
-import SignUp from '../screens/Auth/signUp'
 import Logout from '../screens/Auth/logout'
 
 import stats from '../screens/Stats/stats'
@@ -38,7 +42,43 @@ import settings from '../screens/Settings/settings'
 
 import exams from '../screens/Exams/exams'
 
-import Hello from '../screens/hello'
+class HeaderLeft extends React.Component {
+  refresh = async () => {
+    const userToken = await await AsyncStorage.getItem('USER_KEY')
+    const currentScreen = this.props.navigation
+    switch (currentScreen) {
+      case 'الواجبات المنزلية':
+        this.props.getHomework(this.props.currentChild)
+      case 'الأبناء':
+        this.props.getUser(userToken)
+    }
+  }
+  render() {
+    return (
+      <TouchableOpacity onPress={() => this.refresh()}>
+        <MaterialIcons
+          name="refresh"
+          size={30}
+          color="white"
+          style={{ marginLeft: 10 }}
+        />
+      </TouchableOpacity>
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return { currentChild: state.child.currentChild.idstudent }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUser: id => dispatch(getUser(id)),
+    getHomework: id => dispatch(getHomework(id))
+  }
+}
+
+const HeaderLeftRedux = connect(mapStateToProps, mapDispatchToProps)(HeaderLeft)
 
 const navigationOptionsWithDrawer = props => ({
   headerRight: (
@@ -46,7 +86,7 @@ const navigationOptionsWithDrawer = props => ({
       <Entypo name="menu" size={30} color="white" style={{ marginRight: 10 }} />
     </TouchableOpacity>
   ),
-  headerLeft: <View style={{ marginLeft: 10 }} />,
+  headerLeft: <HeaderLeftRedux navigation={props.navigation.state.routeName} />,
   headerTitle: `${props.navigation.state.routeName}`,
   headerTintColor: 'white',
   headerTitleStyle: {
@@ -164,14 +204,7 @@ const AuthStack = StackNavigator(
       navigationOptions: {
         header: null
       }
-    },
-    SignUp: {
-      screen: SignUp,
-      navigationOptions: navigationOptionsWithBack
     }
-  },
-  {
-    initialRouteName: 'SignIn'
   }
 )
 
@@ -179,7 +212,7 @@ export default SwitchNavigator(
   {
     AuthLoading: AuthLoading,
     AuthStack: AuthStack,
-    AppStack: AppStack
+		AppStack: AppStack,
   },
   {
     initialRouteName: 'AuthLoading'

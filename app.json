@@ -6,7 +6,8 @@
       "image": "./app/assets/splash.png",
       "backgroundColor": "#106cc8",
       "resizeMode": "cover"
-    },
+		},
+		"orientation":"portrait",
     "version": "0.0.1",
     "slug": "madrasati",
     "sdkVersion": "26.0.0",

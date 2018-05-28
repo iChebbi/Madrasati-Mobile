@@ -21,7 +21,7 @@ class SignIn extends React.Component {
     password: 'root',
     errorEmail: false,
     errorPassword: false
-	}
+  }
 
   loginHandler = async () => {
     this.setState({
@@ -51,7 +51,7 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView  behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Image source={require('../../assets/logo.png')} style={styles.logo} />
 
         <Text style={styles.header}>مدرستي</Text>
@@ -82,12 +82,6 @@ class SignIn extends React.Component {
           rounded
           title="تسجيل الدخول"
         />
-        {/* <Button
-          onPress={() => this.props.navigation.navigate('SignUp')}
-          buttonStyle={styles.button}
-          rounded
-          title="تسجيل حساب"
-        /> */}
       </KeyboardAvoidingView>
     )
   }
@@ -98,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#106cc8',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   logo: {
     width: 150,
