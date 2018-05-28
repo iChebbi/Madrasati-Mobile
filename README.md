@@ -9,11 +9,19 @@ It enables parents to check on their children activity in their school.
 
 ## Table of Contents
 
+<<<<<<< HEAD
 * [Prerequisites](#prerequisites)
 * [Installing](#installing)
 * [Running](#running)
 * [Built With](#built-with)
 * [Todo](#todo)
+=======
+* [prerequisites](#prerequisites)
+* [installing](#installing)
+* [running](#running)
+* [built With](#built-with)
+* [todo](#todo)
+>>>>>>> df5576aafe1e95d311684b0de74d99232d849a21
 
 ### Prerequisites
 
