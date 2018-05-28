@@ -11,13 +11,13 @@ It enables parents to check on their children activity in their school.
 
 - [Madrasati Mobile](#madrasati-mobile)
 	- [Table of Contents](#table-of-contents)
-		- [Prerequisites](#prerequisites)
-		- [Installing](#installing)
+	- [Prerequisites](#prerequisites)
+	- [Installing](#installing)
 	- [Running](#running)
 	- [Built With](#built-with)
 	- [Todo](#todo)
 
-### Prerequisites
+## Prerequisites
 
 Before we start make sure you have installed :
 
@@ -25,7 +25,7 @@ Before we start make sure you have installed :
 * Android/iOS Simulator along with required SDK or [Expo Mobile Client](https://expo.io/tools#client)
 * [Madrasati Server](https://gitlab.com/benyaalaamir/madrasati) Along its dependencies
 
-### Installing
+## Installing
 
 * Configure and setup Madrasati Server on your Computer/Server
 * Git Clone this repo &nbsp; : &nbsp; `git clone https://gitlab.com/madrasati/Madrasati-Mobile`
