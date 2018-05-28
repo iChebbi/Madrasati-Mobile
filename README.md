@@ -9,13 +9,11 @@ It enables parents to check on their children activity in their school.
 
 ## Table of Contents
 
-- [Madrasati Mobile](#madrasati-mobile)
-	- [Table of Contents](#table-of-contents)
-	- [Prerequisites](#prerequisites)
-	- [Installing](#installing)
-	- [Running](#running)
-	- [Built With](#built-with)
-	- [Todo](#todo)
+* [Prerequisites](#prerequisites)
+* [Installing](#installing)
+* [Running](#running)
+* [Built With](#built-with)
+* [Todo](#todo)
 
 ## Prerequisites
 
