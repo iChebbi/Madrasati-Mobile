@@ -23,7 +23,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "expo": "^26.0.0",
     "react": "16.3.0-alpha.1",
     "react-native-calendars": "^1.212.0",
